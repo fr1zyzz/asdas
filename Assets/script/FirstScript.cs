@@ -9,7 +9,6 @@ public class FirstScript : MonoBehaviour
   SpriteRenderer spR;
   Animator anim;
   float timerShoot;
-  float scalePlayer;
   void Start()
   {
     rb = GetComponent<Rigidbody2D>();
@@ -32,25 +31,16 @@ public class FirstScript : MonoBehaviour
   void move()
   {
     Vector2 move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-    if(move.x == 1) {
-      scalePlayer = 1;
-    } else if (move.x == -1) {
-      scalePlayer = -1;
-    } 
-
-    if(move != Vector2.zero) {
+    if(move != Vector2.zero){
       anim.SetBool("run", true);
     } else {
       anim.SetBool("run", false);
     }
-
-    if(scalePlayer == -1) {
-      spR.flipX = true;
-    } else {
+    if(move.x == 1){
       spR.flipX = false;
+    } else if(move.x == -1){
+      spR.flipX = true;
     }
-
     Vector2 moveVelocity = move.normalized * speed;
     rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
   }
